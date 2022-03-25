@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Miniprojetapplimobile">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.ResultActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

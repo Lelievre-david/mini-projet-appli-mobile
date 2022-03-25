@@ -1,4 +1,4 @@
-package com.example.mini_projet_appli_mobile;
+package com.example;
 
 import android.content.Intent;
 import android.os.Parcelable;
@@ -10,10 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mini_projet_appli_mobile.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -21,7 +22,6 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-import javax.xml.transform.Result;
 
 public class MainActivity extends AppCompatActivity {
     static final String api_key = "434a5b32f7281f2f7050697f579bd253";
@@ -64,37 +64,41 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                     Log.i("MainActivity", "Success: " + result.toString());
                                     JsonArray results = result.getAsJsonArray("results");
-                                    for (int i = 0; i < results.size(); i++) {
-                                        JsonObject movie = results.get(i).getAsJsonObject();
-                                        try {
-                                            poster_path = movie.get("poster_path").getAsString();
+                                    if (results.size()>0) {
+
+                                        for (int i = 0; i < results.size(); i++) {
+                                            JsonObject movie = results.get(i).getAsJsonObject();
+                                            try {
+                                                poster_path = movie.get("poster_path").getAsString();
+                                            } catch (Exception exception) {
+                                                poster_path = "";
+                                            }
+                                            liste_film.add(new Film(
+                                                    movie.get("id").getAsString(),
+                                                    movie.get("title").getAsString(),
+                                                    movie.get("overview").getAsString(),
+                                                    movie.get("release_date").getAsString(),
+                                                    poster_path
+                                            ));
                                         }
-                                        catch (Exception exception){
-                                            poster_path="";
+                                        // Print the films
+                                        for (Film film : liste_film) {
+                                            Log.i("MainActivity", film.toString());
                                         }
-                                        liste_film.add(new Film(
-                                                movie.get("id").getAsString(),
-                                                movie.get("title").getAsString(),
-                                                movie.get("overview").getAsString(),
-                                                movie.get("release_date").getAsString(),
-                                                poster_path
-                                        ));
+                                        Intent versSecondaire = new Intent(MainActivity.this, ResultActivity.class);
+                                        versSecondaire.putExtra("titre", liste_film);
+                                        startActivity(versSecondaire);
                                     }
-                                    // Print the films
-                                    for (Film film : liste_film) {
-                                        Log.i("MainActivity", film.toString());
+                                    else{
+                                        Toast.makeText(v.getContext(), "aucun résultat trouvé", Toast.LENGTH_LONG);
+                                        Log.i("not found:","true");
                                     }
                                 }
                             }
                         });
             }
         });
-        /*intent versSecondaire = new Intent(MainActivity.this, ResultActivity.class);
-        versSecondaire.putExtra("titre", (Parcelable) nom);
-        versSecondaire.putExtra("date", (Parcelable) date);
-        versSecondaire.putExtra("genre", (Parcelable) genre);
-        versSecondaire.putExtra("nombre_result", (Parcelable) nombre);
-        startActivityForResult(versSecondaire,REQUEST_ID);*/
+
     }
 
 }

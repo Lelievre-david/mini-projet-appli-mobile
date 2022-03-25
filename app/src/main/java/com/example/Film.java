@@ -1,6 +1,9 @@
-package com.example.mini_projet_appli_mobile;
+package com.example;
 
-public class Film {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Film implements Parcelable {
     private String id;
     private String title;
     private String synopsis;
@@ -14,6 +17,26 @@ public class Film {
         this.year = year;
         this.path_poster = path_poster;
     }
+
+    protected Film(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        synopsis = in.readString();
+        year = in.readString();
+        path_poster = in.readString();
+    }
+
+    public static final Creator<Film> CREATOR = new Creator<Film>() {
+        @Override
+        public Film createFromParcel(Parcel in) {
+            return new Film(in);
+        }
+
+        @Override
+        public Film[] newArray(int size) {
+            return new Film[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -59,4 +82,17 @@ public class Film {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(title);
+        parcel.writeString(synopsis);
+        parcel.writeString(year);
+        parcel.writeString(path_poster);
+    }
 }
