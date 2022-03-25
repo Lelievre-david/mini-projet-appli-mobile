@@ -1,7 +1,6 @@
 package com.example;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
