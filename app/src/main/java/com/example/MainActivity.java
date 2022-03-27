@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                                 liste_genre.add(new Genre(genre.get("id").getAsString(), genre.get("name").getAsString()));
                             }
                             adapter.notifyDataSetChanged();
-
                         }
                     }
                 });
@@ -82,16 +81,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String query_value=nom.getText().toString();
                 if (query_value.matches("")){
-                    Toast.makeText(v.getContext(), "merci de rentrer une recherche dans le champs rechercher des films", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Merci de rentrer une recherche dans le champs 'Rechercher des films'", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    query_value=query_value.replace(" ","+");
+                    query_value=query_value.replace(" ","+");//remplacement des espaces par un + dans la query pour ne pas casser l'uri
                     genre_id="";
+
+                    //récupération de l'id du genre selectionné dans le spinner
                     for (Genre element:liste_genre) {
                         if (genre.getSelectedItem().toString()==element.getName()){
                             genre_id=element.getId();
                         }
                     }
+
                     // Get the data from the server with Ion
                     Ion.with(v.getContext())
                             .load("https://api.themoviedb.org/3/search/movie?api_key="+api_key+"&query="+query_value+"&year="+date.getText().toString()+"&language=fr")
@@ -105,8 +107,11 @@ public class MainActivity extends AppCompatActivity {
                                         Log.i("MainActivity", "Success: " + result.toString());
                                         JsonArray results = result.getAsJsonArray("results");
 
+                                        //on parcours tout les films
                                         for (int i = 0; i < results.size(); i++) {
                                             JsonObject movie = results.get(i).getAsJsonObject();
+
+                                            //on gère les valeurs null renvoyés dans certains cas par l'API
                                             try {
                                                 poster_path = movie.get("poster_path").getAsString();
                                                 release_date = movie.get("release_date").getAsString();
@@ -114,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
                                                 poster_path = "";
                                                 release_date= "";
                                             }
-                                            JsonArray genre_ids = movie.get("genre_ids").getAsJsonArray();
+
+                                            //si l'utilisateur à demander tout les genres on ajoute le film directement
                                             if(genre_id.matches("null")){
                                                 liste_film.add(new Film(
                                                         movie.get("id").getAsString(),
@@ -124,7 +130,9 @@ public class MainActivity extends AppCompatActivity {
                                                         poster_path
                                                 ));
                                             }
+                                            //sinon on parcours tout les genres de chaque film
                                             else {
+                                                JsonArray genre_ids = movie.get("genre_ids").getAsJsonArray();
                                                 for (int j = 0; j < genre_ids.size(); j++) {
                                                     if (genre_ids.get(j).getAsString().matches(genre_id)) {
                                                         liste_film.add(new Film(
@@ -139,26 +147,32 @@ public class MainActivity extends AppCompatActivity {
                                             }
 
                                         }
-                                        if (liste_film.size()!=0) {
-                                            Log.i("progress", String.valueOf(nombre.getProgress()));
+
+                                        //on vérifie que la liste n'est pas vide
+                                        if (liste_film.size()>0) {
                                             int max;
-                                            if (liste_film.size()<nombre.getProgress()){
-                                                max=liste_film.size();
+                                            ArrayList<Film> film_to_send;
+                                            //si le nombre de résultats trouvés est isupérieur au nombre de résultats demandés
+                                            if (liste_film.size()>nombre.getProgress()){
+                                                //on tronque la liste selon le nombre de résultats demandés
+                                                film_to_send = new ArrayList<>(liste_film.subList(0,nombre.getProgress()));
                                             }
                                             else{
-                                                max=nombre.getProgress();
+                                                film_to_send = liste_film;
                                             }
-                                            ArrayList<Film> film_to_send = new ArrayList<>(liste_film.subList(0,max));
+
                                             // Print the films
                                             for (Film film : film_to_send) {
                                                 Log.i("MainActivity here", film.toString());
                                             }
+
+                                            //on envoie la liste de films à la deuxième activité
                                             Intent versSecondaire = new Intent(MainActivity.this, ResultActivity.class);
-                                            versSecondaire.putExtra("titre", film_to_send);
+                                            versSecondaire.putExtra("films", film_to_send);
                                             startActivity(versSecondaire);
                                         }
                                         else {
-                                            Toast.makeText(v.getContext(),"aucun résultat trouvé",Toast.LENGTH_LONG).show();;
+                                            Toast.makeText(v.getContext(),"Aucun résultat trouvé",Toast.LENGTH_LONG).show();;
                                         }
                                     }
                                 }
