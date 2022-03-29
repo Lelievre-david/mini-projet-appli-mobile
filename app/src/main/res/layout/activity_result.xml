@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.ResultActivity">
 
+    <ListView
+        android:id="@+id/ListViewMovies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="parent"
+        tools:context="abhiandroid.com.listexample.MainActivity"
+        tools:layout_editor_absoluteX="0dp"></ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

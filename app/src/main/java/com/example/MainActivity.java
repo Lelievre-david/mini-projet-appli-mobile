@@ -87,11 +87,14 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     query_value=query_value.replace(" ","+");
                     genre_id="";
+
+                    //récupération de l'id du genre selectionné dans le spinner
                     for (Genre element:liste_genre) {
                         if (genre.getSelectedItem().toString()==element.getName()){
                             genre_id=element.getId();
                         }
                     }
+
                     // Get the data from the server with Ion
                     Ion.with(v.getContext())
                             .load("https://api.themoviedb.org/3/search/movie?api_key="+api_key+"&query="+query_value+"&year="+date.getText().toString()+"&language=fr")
@@ -105,8 +108,11 @@ public class MainActivity extends AppCompatActivity {
                                         Log.i("MainActivity", "Success: " + result.toString());
                                         JsonArray results = result.getAsJsonArray("results");
 
+                                        //on parcours tout les films
                                         for (int i = 0; i < results.size(); i++) {
                                             JsonObject movie = results.get(i).getAsJsonObject();
+
+                                            //on gère les valeurs null renvoyés dans certains cas par l'API
                                             try {
                                                 poster_path = movie.get("poster_path").getAsString();
                                                 release_date = movie.get("release_date").getAsString();
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                                             Films films=new Films(film_to_send);
 
                                             Intent versSecondaire = new Intent(MainActivity.this, ResultActivity.class);
-                                            versSecondaire.putExtra("titre", films);
+                                            versSecondaire.putExtra("films", films);
                                             startActivity(versSecondaire);
                                         }
                                         else {
