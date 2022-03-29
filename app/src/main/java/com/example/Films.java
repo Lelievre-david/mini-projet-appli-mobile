@@ -13,10 +13,12 @@ public class Films implements Parcelable {
     }
 
     protected Films(Parcel in) {
+        this.liste_film=in.readArrayList(Film.class.getClassLoader());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeList(liste_film);
     }
 
     @Override
