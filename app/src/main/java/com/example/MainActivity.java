@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         genre.setAdapter(adapter);
 
         SeekBar nombre = findViewById(R.id.nombre_value);
+        TextView seekbar_value = findViewById(R.id.seekbar_value);
         Button recherche = findViewById(R.id.recherche);
 
         //recupération des genres disponibles dans l'API
@@ -75,8 +77,27 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
+        //branchement de la seekbar avec le text qui affiche sa valeur
+        nombre.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,boolean fromUser) {
+                // TODO Auto-generated method stub
+                seekbar_value.setText(String.valueOf(nombre.getProgress()));
+            }
+        });
+
+        //lancement de la recherche
         recherche.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                                                 poster_path = "";
                                                 release_date= "";
                                             }
-                                            JsonArray genre_ids = movie.get("genre_ids").getAsJsonArray();
+                                            //si l'utilisateur n'a pas selectionné de genre on ajoute le film sans regarder
                                             if(genre_id.matches("null")){
                                                 liste_film.add(new Film(
                                                         movie.get("id").getAsString(),
@@ -130,8 +151,12 @@ public class MainActivity extends AppCompatActivity {
                                                         poster_path
                                                 ));
                                             }
+
+                                            //sinon on récupère le tableau de genre_ids du film et on le parcours
                                             else {
+                                                JsonArray genre_ids = movie.get("genre_ids").getAsJsonArray();
                                                 for (int j = 0; j < genre_ids.size(); j++) {
+                                                    //si il y a le genre selectionné on ajoute le film
                                                     if (genre_ids.get(j).getAsString().matches(genre_id)) {
                                                         liste_film.add(new Film(
                                                                 movie.get("id").getAsString(),
@@ -145,22 +170,22 @@ public class MainActivity extends AppCompatActivity {
                                             }
 
                                         }
+
+                                        //gestion du nombre de résultats
                                         if (liste_film.size()!=0) {
                                             Log.i("progress", String.valueOf(nombre.getProgress()));
-                                            int max;
-                                            if (liste_film.size()<nombre.getProgress()){
-                                                max=liste_film.size();
+                                            Films films;                                            //on tronque la liste de film si nécessaire
+                                            if (nombre.getProgress()>liste_film.size()){
+                                                films = new Films(new ArrayList<>(liste_film.subList(0,nombre.getProgress())));
                                             }
                                             else{
-                                                max=nombre.getProgress();
-                                            }
-                                            ArrayList<Film> film_to_send = new ArrayList<>(liste_film.subList(0,max));
-                                            // Print the films
-                                            for (Film film : film_to_send) {
-                                                Log.i("MainActivity here", film.toString());
+                                                films = new Films(liste_film);
                                             }
 
-                                            Films films=new Films(film_to_send);
+                                            // Print the films
+                                            for (Film film : films.getListe_film()) {
+                                                Log.i("MainActivity here", film.toString());
+                                            }
 
                                             Intent versSecondaire = new Intent(MainActivity.this, ResultActivity.class);
                                             versSecondaire.putExtra("films", films);
