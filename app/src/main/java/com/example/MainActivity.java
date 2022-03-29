@@ -153,8 +153,11 @@ public class MainActivity extends AppCompatActivity {
                                             for (Film film : film_to_send) {
                                                 Log.i("MainActivity here", film.toString());
                                             }
+
+                                            Films films=new Films(film_to_send);
+
                                             Intent versSecondaire = new Intent(MainActivity.this, ResultActivity.class);
-                                            versSecondaire.putExtra("titre", film_to_send);
+                                            versSecondaire.putExtra("titre", films);
                                             startActivity(versSecondaire);
                                         }
                                         else {

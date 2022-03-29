@@ -3,7 +3,7 @@ package com.example;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Film implements Parcelable {
+public class Film {
     private String id;
     private String title;
     private String synopsis;
@@ -26,17 +26,7 @@ public class Film implements Parcelable {
         path_poster = in.readString();
     }
 
-    public static final Creator<Film> CREATOR = new Creator<Film>() {
-        @Override
-        public Film createFromParcel(Parcel in) {
-            return new Film(in);
-        }
 
-        @Override
-        public Film[] newArray(int size) {
-            return new Film[size];
-        }
-    };
 
     public String getId() {
         return id;
@@ -70,7 +60,6 @@ public class Film implements Parcelable {
         this.path_poster = path_poster;
     }
 
-    @Override
     public String toString() {
         return "Film{" +
                 "id='" + id + '\'' +
@@ -81,18 +70,4 @@ public class Film implements Parcelable {
                 '}';
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(title);
-        parcel.writeString(synopsis);
-        parcel.writeString(year);
-        parcel.writeString(path_poster);
-    }
 }
