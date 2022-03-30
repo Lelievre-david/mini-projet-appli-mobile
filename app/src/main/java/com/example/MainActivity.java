@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                                             startActivity(versSecondaire);
                                         }
                                         else {
-                                            Toast.makeText(v.getContext(),"aucun résultat trouvé",Toast.LENGTH_LONG).show();;
+                                            Toast.makeText(v.getContext(),"Aucun résultat trouvé",Toast.LENGTH_LONG).show();;
                                         }
                                     }
                                 }
