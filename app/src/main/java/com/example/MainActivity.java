@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         liste_film= new ArrayList<Film>();
         liste_genre= new ArrayList<Genre>();
         liste_genre.add(new Genre("null","Tous"));
-        adapter = new ArrayAdapter<Genre>(this,android.R.layout.simple_spinner_item,liste_genre);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter = new ArrayAdapter<Genre>(this,R.layout.spinner_item,liste_genre);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         //Récupération des composants de la vue
         EditText nom = findViewById(R.id.titre);
