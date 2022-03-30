@@ -18,7 +18,8 @@ public class ResultActivity extends AppCompatActivity {
     ListView myList;
     Films receivedFilms;
     TextView myText;
-    String countryList[] = {"India", "China", "australia", "Portugle", "America", "NewZealand"};
+    ArrayList<Film> listFilms;
+    ArrayList<String> movieTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,14 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         myList = (ListView)findViewById(R.id.ListViewMovies);
         myText = findViewById(R.id.TextViewMovies);
+        movieTitles = new ArrayList<String>();
         Bundle extras = getIntent().getExtras();
         receivedFilms = extras.getParcelable("films");
-        Log.i("ResultActivity", receivedFilms.getListe_film().toString());
-        ArrayAdapter<Film> arrayAdapter = new ArrayAdapter<Film>(this, R.layout.list_view, R.id.TextViewMovies, receivedFilms.getListe_film());
+        listFilms = receivedFilms.getListe_film();
+        for (Film f:listFilms) {
+            movieTitles.add(f.getTitle());
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_view, R.id.TextViewMovies, movieTitles);
         myList.setAdapter(arrayAdapter);
     }
 }

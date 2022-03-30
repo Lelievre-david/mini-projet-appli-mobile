@@ -47,6 +47,8 @@ public class Film implements Parcelable{
         this.id = id;
     }
 
+    public String getTitle() { return title; }
+
     public String getSynopsis() {
         return synopsis;
     }
