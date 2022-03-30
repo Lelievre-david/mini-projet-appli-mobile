@@ -106,16 +106,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(), "merci de rentrer une recherche dans le champs rechercher des films", Toast.LENGTH_LONG).show();
                 }
                 else{
+                    //on gère les potentiles espces dans la query
                     query_value=query_value.replace(" ","+");
-                    genre_id="";
 
                     //récupération de l'id du genre selectionné dans le spinner
-                    for (Genre element:liste_genre) {
-                        if (genre.getSelectedItem().toString()==element.getName()){
-                            genre_id=element.getId();
-                        }
-                    }
-
+                    Genre genre_select= (Genre) genre.getSelectedItem();
+                    genre_id = genre_select.getId();
                     // Get the data from the server with Ion
                     Ion.with(v.getContext())
                             .load("https://api.themoviedb.org/3/search/movie?api_key="+api_key+"&query="+query_value+"&year="+date.getText().toString()+"&language=fr")
@@ -184,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
                                             // Print the films
                                             for (Film film : films.getListe_film()) {
-                                                Log.i("MainActivity here", film.toString());
+                                                Log.i("MainActivity here", film.toStringLe2());
                                             }
 
                                             Intent versSecondaire = new Intent(MainActivity.this, ResultActivity.class);
