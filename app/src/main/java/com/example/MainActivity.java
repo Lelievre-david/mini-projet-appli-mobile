@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                                         Log.i("MainActivity", "Success: " + result.toString());
                                         JsonArray results = result.getAsJsonArray("results");
 
-                                        //on parcours tout les films
+                                        //on parcourt tout les films
                                         for (int i = 0; i < results.size(); i++) {
                                             JsonObject movie = results.get(i).getAsJsonObject();
 

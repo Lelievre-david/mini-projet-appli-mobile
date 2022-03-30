@@ -74,6 +74,10 @@ public class Film implements Parcelable{
     }
 
     public String toString() {
+        return title;
+    }
+
+    public String toStringLe2() {
         return "Film{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
