@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Miniprojetapplimobile">
         <activity
+            android:name="com.example.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.ResultActivity"
             android:exported="false" />
         <activity

@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                                         if (liste_film.size()!=0) {
                                             Log.i("progress", String.valueOf(nombre.getProgress()));
                                             Films films;                                            //on tronque la liste de film si nécessaire
-                                            if (nombre.getProgress()>liste_film.size()){
+                                            if (nombre.getProgress()<liste_film.size()){
                                                 films = new Films(new ArrayList<>(liste_film.subList(0,nombre.getProgress())));
                                             }
                                             else{
