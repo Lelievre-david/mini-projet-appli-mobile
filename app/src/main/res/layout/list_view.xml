@@ -4,11 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip">
+
+        <ImageView
+            android:id="@+id/list_image"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_alignParentStart="true"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/TextViewMovies"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
