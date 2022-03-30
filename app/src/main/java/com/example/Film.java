@@ -18,6 +18,10 @@ public class Film implements Parcelable{
         this.path_poster = path_poster;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     protected Film(Parcel in) {
         id = in.readString();
         title = in.readString();
@@ -47,7 +51,7 @@ public class Film implements Parcelable{
         this.id = id;
     }
 
-    public String getTitle() { return title; }
+
 
     public String getSynopsis() {
         return synopsis;
