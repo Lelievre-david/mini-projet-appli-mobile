@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String query_value=nom.getText().toString();
                 if (query_value.matches("")){
-                    Toast.makeText(v.getContext(), "merci de rentrer une recherche dans le champs rechercher des films", Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Merci de rentrer une recherche dans le champs rechercher des films", Toast.LENGTH_LONG).show();
                 }
                 else{
                     //on gère les potentiles espces dans la query
