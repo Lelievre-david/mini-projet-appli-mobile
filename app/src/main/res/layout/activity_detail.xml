@@ -8,13 +8,16 @@
 
     <ImageView
         android:id="@+id/affiche"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
         android:layout_gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@mipmap/img"
+        android:scaleType="centerCrop"
+
+
 
         />
 
