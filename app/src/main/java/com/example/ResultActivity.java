@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,8 +21,10 @@ public class ResultActivity extends AppCompatActivity {
     ListView myList;
     Films receivedFilms;
     TextView myText;
+    ImageView myPoster;
     ArrayList<Film> listFilms;
     ArrayList<String> movieTitles;
+    ArrayList<SubjectData> theList;
     int i;
 
     @Override
@@ -31,23 +34,30 @@ public class ResultActivity extends AppCompatActivity {
 
         myList = (ListView)findViewById(R.id.ListViewMovies);
         myText = findViewById(R.id.TextViewMovies);
+        myPoster = findViewById(R.id.list_image);
         movieTitles = new ArrayList<String>();
+        theList = new ArrayList<SubjectData>();
+
         Bundle extras = getIntent().getExtras();
         receivedFilms = extras.getParcelable("films");
         listFilms = receivedFilms.getListe_film();
+
         i = 0;
         for (Film f:listFilms) {
             movieTitles.add(f.getTitle());
+            theList.add(new SubjectData(f, f.getTitle(), f.getPath_poster()));
         }
-        ArrayAdapter<Film> arrayAdapter = new ArrayAdapter<Film>(this, R.layout.list_view, R.id.TextViewMovies, listFilms);
-        myList.setAdapter(arrayAdapter);
+        CustomAdapter customAdapter = new CustomAdapter(this, theList);
+        myList.setAdapter(customAdapter);
+
+
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Film selectedItem = (Film) parent.getItemAtPosition(position);
+                SubjectData selectedItem = (SubjectData) parent.getItemAtPosition(position);
+                Film film = selectedItem.film;
                 Intent versTertiaire = new Intent(ResultActivity.this, DetailActivity.class);
-                versTertiaire.putExtra("leMovie", selectedItem);
-                Log.i("ResultActivity", selectedItem.toStringLe2());
+                versTertiaire.putExtra("leMovie", film);
                 startActivity(versTertiaire);
             }
         });
