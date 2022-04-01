@@ -24,8 +24,9 @@ public class DetailActivity extends AppCompatActivity {
         TextView annee = findViewById(R.id.annee);
         TextView synopsis = findViewById(R.id.synopsis);
 
+
         titre.setText(movie.getTitle());
-        annee.setText(movie.getYear());
+        annee.setText(movie.getYear().substring(0,4));
         synopsis.setText(movie.getSynopsis());
         Picasso.get().load("https://image.tmdb.org/t/p/w500" + movie.getPath_poster()).into(imageView);
 

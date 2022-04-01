@@ -6,53 +6,69 @@
     android:layout_height="match_parent"
     tools:context="com.example.DetailActivity">
 
-    <ImageView
-        android:id="@+id/affiche"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <ImageButton
+        android:id="@+id/close"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/img"
-        android:scaleType="centerCrop"
-
-
-
-        />
-
-    <TextView
-        android:id="@+id/titre"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
-        android:maxLines="2"
-        android:text="TextView"
-        android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/affiche" />
+        app:srcCompat="@mipmap/close" />
 
-    <TextView
-        android:id="@+id/synopsis"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="15dp"
-        android:maxLines="20"
-        android:text="TextView"
-        android:textAlignment="gravity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/annee" />
-    <TextView
-        android:id="@+id/annee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:maxLines="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titre"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="12dp"
-/>
+    <ScrollView
+        android:layout_height="match_parent"
+         android:layout_width="match_parent"
+        android:layout_marginTop="35dp">
+
+      <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/affiche"
+                android:layout_width="match_parent"
+                android:layout_height="550dp"
+                android:layout_gravity="center"
+                app:srcCompat="@mipmap/img"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:id="@+id/titre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:maxLines="2"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/annee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/synopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="12dp"
+                android:maxLines="20"
+                android:text="TextView"
+                android:textAlignment="gravity"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+      </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

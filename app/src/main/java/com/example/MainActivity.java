@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
-        liste_film= new ArrayList<Film>();
         liste_genre= new ArrayList<Genre>();
         liste_genre.add(new Genre("null","Tous"));
         adapter = new ArrayAdapter<Genre>(this,R.layout.spinner_item,liste_genre);
@@ -102,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String query_value=nom.getText().toString();
+                liste_film = new ArrayList<>();
                 if (query_value.matches("")){
                     Toast.makeText(v.getContext(), "Merci de rentrer une recherche dans le champs rechercher des films", Toast.LENGTH_LONG).show();
                 }
