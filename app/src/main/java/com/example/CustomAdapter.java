@@ -1,6 +1,5 @@
 package com.example;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
