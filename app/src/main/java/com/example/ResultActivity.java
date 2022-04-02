@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class ResultActivity extends AppCompatActivity {
     Films receivedFilms;
     TextView myText;
     ImageView myPoster;
+    ImageButton back;
     ArrayList<Film> listFilms;
     ArrayList<String> movieTitles;
     ArrayList<SubjectData> theList;
@@ -35,6 +37,7 @@ public class ResultActivity extends AppCompatActivity {
         myList = (ListView)findViewById(R.id.ListViewMovies);
         myText = findViewById(R.id.TextViewMovies);
         myPoster = findViewById(R.id.list_image);
+        back = findViewById(R.id.close);
         movieTitles = new ArrayList<String>();
         theList = new ArrayList<SubjectData>();
 
@@ -59,6 +62,15 @@ public class ResultActivity extends AppCompatActivity {
                 Intent versTertiaire = new Intent(ResultActivity.this, DetailActivity.class);
                 versTertiaire.putExtra("leMovie", film);
                 startActivity(versTertiaire);
+            }
+        });
+
+        //branchement du bouton close
+        back.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
