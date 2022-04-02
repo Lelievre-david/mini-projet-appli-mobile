@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.search);
         liste_genre= new ArrayList<Genre>();
         liste_genre.add(new Genre("null","Tous"));
-        adapter = new ArrayAdapter<Genre>(this,R.layout.spinner_item,liste_genre);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
-
+        adapter = new ArrayAdapter<Genre>(this,R.layout.simple_spinner_item,liste_genre);
         //Récupération des composants de la vue
         EditText nom = findViewById(R.id.titre);
         EditText date = findViewById(R.id.date_value);
