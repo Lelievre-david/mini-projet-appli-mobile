@@ -130,11 +130,15 @@ public class MainActivity extends AppCompatActivity {
                                             //on gère les valeurs null renvoyés dans certains cas par l'API
                                             try {
                                                 poster_path = movie.get("poster_path").getAsString();
-                                                release_date = movie.get("release_date").getAsString();
                                             } catch (Exception exception) {
                                                 poster_path = "";
+                                            }
+                                            try{
+                                                release_date = movie.get("release_date").getAsString();
+                                            }catch (Exception exception) {
                                                 release_date= "";
                                             }
+
                                             //si l'utilisateur n'a pas selectionné de genre on ajoute le film sans regarder
                                             if(genre_id.matches("null")){
                                                 liste_film.add(new Film(
