@@ -27,13 +27,13 @@ public class ResultActivity extends AppCompatActivity {
     ArrayList<Film> listFilms;
     ArrayList<String> movieTitles;
     ArrayList<SubjectData> theList;
-    int i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        //Récupération des composants de la vue
         myList = (ListView)findViewById(R.id.ListViewMovies);
         myText = findViewById(R.id.TextViewMovies);
         myPoster = findViewById(R.id.list_image);
@@ -41,11 +41,12 @@ public class ResultActivity extends AppCompatActivity {
         movieTitles = new ArrayList<String>();
         theList = new ArrayList<SubjectData>();
 
+        //Récupération des extras envoyés dans l'Intent
         Bundle extras = getIntent().getExtras();
         receivedFilms = extras.getParcelable("films");
         listFilms = receivedFilms.getListe_film();
 
-        i = 0;
+        //Création d'un Adapter pour mettre en place la ListView
         for (Film f:listFilms) {
             movieTitles.add(f.getTitle());
             theList.add(new SubjectData(f, f.getTitle(), f.getPath_poster()));
@@ -54,6 +55,7 @@ public class ResultActivity extends AppCompatActivity {
         myList.setAdapter(customAdapter);
 
 
+        //Création d'un Listener pour passer à la prochaine vue
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
